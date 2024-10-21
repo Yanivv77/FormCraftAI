@@ -1,8 +1,9 @@
-"use client"
-
-import React, { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+"use client";
+import React, { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 interface FlagProps {
   className?: string
@@ -16,7 +17,7 @@ const USFlag = ({ className }: FlagProps) => (
         <path fill="#fff" d="M0 37h912v37H0zm0 73.8h912v37H0zm0 73.8h912v37H0zm0 73.9h912v37H0zm0 73.8h912v37H0z"/>
       </g>
       <path fill="#192f5d" d="M0 0h364.8v258.5H0z"/>
-      <path fill="#fff" d="m30.4 11 3.4 10.3h10.6l-8.6 6.3 3.3 10.3-8.7-6.4-8.6 6.3L25 27.6l-8.7-6.3h10.9zm60.8 0 3.3 10.3h10.8l-8.7 6.3 3.2 10.3-8.6-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.6zm60.8 0 3.3 10.3H166l-8.6 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.7-6.3h10.8zm60.8 0 3.3 10.3h10.8l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.4-10.2-8.8-6.3h10.7zm60.8 0 3.3 10.3h10.7l-8.6 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.7zm60.8 0 3.3 10.3h10.8l-8.8 6.3 3.4 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.6zM60.8 37l3.3 10.2H75l-8.7 6.2 3.2 10.3-8.5-6.3-8.7 6.3 3.1-10.3-8.4-6.2h10.7zm60.8 0 3.4 10.2h10.7l-8.8 6.2 3.4 10.3-8.7-6.3-8.7 6.3 3.3-10.3-8.7-6.2h10.8zm60.8 0 3.3 10.2h10.8l-8.7 6.2 3.3 10.3-8.7-6.3-8.7 6.3 3.3-10.3-8.6-6.2H179zm60.8 0 3.4 10.2h10.7l-8.8 6.2 3.4 10.3-8.7-6.3-8.6 6.3 3.2-10.3-8.7-6.2H240zm60.8 0 3.3 10.2h10.8l-8.7 6.2 3.3 10.3-8.7-6.3-8.7 6.3 3.3-10.3-8.6-6.2h10.7z"/>
+      <path fill="#fff" d="m30.4 11 3.4 10.3h10.6l-8.6 6.3 3.3 10.3-8.7-6.4-8.6 6.3L25 27.6l-8.7-6.3h10.9zm60.8 0 3.3 10.3h10.8l-8.7 6.3 3.2 10.3-8.6-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.6zm60.8 0 3.3 10.3H166l-8.6 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.7-6.3h10.8zm60.8 0 3.3 10.3h10.8l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.7zm60.8 0 3.3 10.3h10.7l-8.6 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.7zm60.8 0 3.3 10.3h10.8l-8.8 6.3 3.4 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.6zM60.8 37l3.3 10.2H75l-8.7 6.2 3.2 10.3-8.5-6.3-8.7 6.3 3.1-10.3-8.4-6.2h10.7zm60.8 0 3.4 10.2h10.7l-8.8 6.2 3.4 10.3-8.7-6.3-8.7 6.3 3.3-10.3-8.7-6.2h10.8zm60.8 0 3.3 10.2h10.8l-8.7 6.2 3.3 10.3-8.7-6.3-8.7 6.3 3.3-10.3-8.6-6.2H179zm60.8 0 3.4 10.2h10.7l-8.8 6.2 3.4 10.3-8.7-6.3-8.6 6.3 3.2-10.3-8.7-6.2H240zm60.8 0 3.3 10.2h10.8l-8.7 6.2 3.3 10.3-8.7-6.3-8.7 6.3 3.3-10.3-8.6-6.2h10.7z"/>
     </g>
   </svg>
 )
@@ -38,26 +39,27 @@ const IsraelFlag = ({ className }: FlagProps) => (
   </svg>
 )
 
-const LanguageSwitcher: React.FC = () => {
-  const { i18n } = useTranslation()
+const LanguageSwitcher = () => {
+  const t = useTranslations(); // Specify the namespace if needed
+  const router = useRouter();
+  const [currentLocale, setCurrentLocale] = useState<'en' | 'he'>('en');
 
-  const changeLanguage = (lang: string) => {
-    i18n.changeLanguage(lang)
-    localStorage.setItem('language', lang) // Store preference
-  }
-  
   useEffect(() => {
-    const storedLang = localStorage.getItem('language')
-    if (storedLang && storedLang !== i18n.language) {
-      i18n.changeLanguage(storedLang)
-    }
-  }, [i18n])
+    const lang = (Cookies.get('language') as 'en' | 'he') || 'en';
+    setCurrentLocale(lang);
+  }, []);
+
+  const changeLanguage = (lang: 'en' | 'he') => {
+    Cookies.set('language', lang, { path: '/' }); // Use js-cookie for setting cookies
+    setCurrentLocale(lang);
+    router.refresh(); // Refresh the page to apply the new locale
+  };
 
   return (
-    <Select value={i18n.language} onValueChange={changeLanguage}>
-      <SelectTrigger className="flex items-center">
+    <Select value={currentLocale} onValueChange={changeLanguage}>
+      <SelectTrigger className="flex items-center px-2 py-1">
         <SelectValue>
-          {i18n.language === "en" ? (
+          {currentLocale === "en" ? (
             <div className="flex items-center">
               <USFlag className="w-5 h-3 mr-2" />
               <span className="hidden sm:inline">English</span>
@@ -71,17 +73,13 @@ const LanguageSwitcher: React.FC = () => {
         </SelectValue>
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="en">
-          <div className="flex items-center">
-            <USFlag className="w-5 h-3 mr-2" />
-            <span className="hidden sm:inline">English</span>
-          </div>
+        <SelectItem value="en" className="flex items-center p-2">
+          <USFlag className="w-5 h-3 mr-2" />
+          <span>English</span>
         </SelectItem>
-        <SelectItem value="he">
-          <div className="flex items-center">
-            <IsraelFlag className="w-5 h-3 mr-2" />
-            <span className="hidden sm:inline">עברית</span>
-          </div>
+        <SelectItem value="he" className="flex items-center p-2">
+          <IsraelFlag className="w-5 h-3 mr-2" />
+          <span>עברית</span>
         </SelectItem>
       </SelectContent>
     </Select>
