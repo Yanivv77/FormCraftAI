@@ -1,0 +1,24 @@
+{
+  "header": {
+  "dashboard": "Dashboard",
+  "getStarted": "Get Started"
+  },
+  "hero": {
+  "title": "Create your Form",
+  "subtitle": "In Seconds Not in Hours",
+  "description": "Generate, publish and share your form right away with AI. Dive into insightful results, charts and analytics.",
+  "createAIForm": "+ Create AI Form",
+  "learnMore": "Learn More",
+  "howItWorks": "How it Works",
+  "howItWorksDescription": "The process of creating and distributing professional forms has never been easier.",
+  "steps": {
+  "step1Title": "Write prompt for your form",
+  "step1Description": "Add clear instructions for completing the form to ensure quality responses.",
+  "step2Title": "Edit Your form",
+  "step2Description": "Customize the form to your needs using FormCraftAI's advanced editing tools.",
+  "step3Title": "Share & Start Accepting Responses",
+  "step3Description": "Share the form with your target audience and get immediate insights on form performance."
+  },
+  "getStartedToday": "Get Started Today"
+  }
+  }
