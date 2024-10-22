@@ -1,14 +1,13 @@
-import { useUser } from '@clerk/nextjs';
-import { useTranslations } from 'next-intl';
+import { Button } from '@/components/ui/button'
+import { UserButton } from '@clerk/nextjs'
 
-export default function Dashboard() {
-  const { user } = useUser();
-  const t = useTranslations('dashboard');
 
-  return (
-    <div>
-      <h1>{t('welcome', { name: user?.firstName })}</h1>
-      {/* Dashboard content */}
-    </div>
-  );
+const Dashboard: React.FC = () => {
+    return (
+        <div className='h-screen'>
+           
+        </div>
+    )
 }
+
+export default Dashboard
