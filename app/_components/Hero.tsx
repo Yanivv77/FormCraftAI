@@ -4,6 +4,7 @@
 import { AtomIcon, Edit, Share2 } from 'lucide-react';
 import React from 'react';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 function Hero() {
   const t = useTranslations('hero'); // Specify the namespace if using
@@ -24,12 +25,12 @@ function Hero() {
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-            <a
+            <Link
                className="inline-block rounded bg-primary px-12 py-3 text-sm font-medium text-white transition hover:bg-purple-700 focus:outline-none focus:ring focus:ring-yellow-400"
-              href="#"
+              href="/sign-in"
             >
               {t('createAIForm')}
-            </a>
+            </Link>
 
             <a
               className="w-full sm:w-auto block rounded px-12 py-3 text-sm font-medium text-primary shadow hover:text-purple-600 focus:outline-none focus:ring active:text-red-500"
@@ -93,12 +94,12 @@ function Hero() {
           </div>
 
           <div className="mt-12 text-center">
-            <a
+            <Link
               href="/sign-in"
               className="inline-block rounded bg-primary px-12 py-3 text-sm font-medium text-white transition hover:bg-purple-700 focus:outline-none focus:ring focus:ring-yellow-400"
             >
               {t('getStartedToday')}
-            </a>
+            </Link>
           </div>
         </div>
       </section>

@@ -23,7 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <NextIntlClientProvider locale={locale} messages={messages}>
         <html lang={locale} dir={locale === 'he' ? 'rtl' : 'ltr'}>
           <body className={`${inter.className} bg-white text-gray-900`}>
-          <Header/>
+          
             {children}
             <Toaster />
           </body>
