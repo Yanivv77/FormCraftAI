@@ -62,28 +62,33 @@ const LanguageSwitcher = () => {
           {currentLocale === "en" ? (
             <div className="flex items-center">
               <USFlag className="w-5 h-3 mr-2" />
-              <span className="hidden sm:inline">English</span>
+              <span className="inline">English</span>
             </div>
           ) : (
             <div className="flex items-center">
               <IsraelFlag className="w-5 h-3 mr-2" />
-              <span className="hidden sm:inline">עברית</span>
+              <span className="inline">עברית</span>
             </div>
           )}
         </SelectValue>
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="en" className="flex items-center p-2">
-          <USFlag className="w-5 h-3 mr-2" />
-          <span>English</span>
+          <div className="flex items-center">
+            <USFlag className="w-5 h-3 mr-2" />
+            <span className="inline">English</span>
+          </div>
         </SelectItem>
-        <SelectItem value="he" className="flex items-center p-2">
-          <IsraelFlag className="w-5 h-3 mr-2" />
-          <span>עברית</span>
+
+        <SelectItem value="he" className="flex row items-center p-2">
+          <div className="flex items-center">
+            <IsraelFlag className="w-5 h-3 mr-2" />
+            <span className="inline">עברית</span>
+          </div>
         </SelectItem>
       </SelectContent>
     </Select>
-  )
+  );
 }
 
 export default LanguageSwitcher

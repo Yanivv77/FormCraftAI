@@ -6,21 +6,25 @@ import Header from '../_components/Header'
 const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <SignedIn>
-      <Header />
       <div className="flex flex-col min-h-screen">
-      
-        <div className='md:w-64'>
-            <SideNav/>
+        {/* Header */}
+        <Header />
+
+        {/* Content Area */}
+        <div className="flex flex-col md:flex-row flex-1">
+          {/* Sidebar */}
+          <div className="w-full md:w-64">
+            <SideNav />
+          </div>
+
+          {/* Main Content */}
+          <main className="flex-1 overflow-auto">
+            {children}
+          </main>
         </div>
-        <div className='md:ml-64 '>
-      
-        {children}
-       
-        </div>
-       
-    </div>
+      </div>
     </SignedIn>
-  )
+  );
 }
 
 export default DashboardLayout

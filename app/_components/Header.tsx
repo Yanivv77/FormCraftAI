@@ -12,7 +12,7 @@ import Link from "next/link";
 
 function Header() {
   const t = useTranslations('header'); 
-  const {user,isSignedIn}=useUser();
+  const { user, isSignedIn } = useUser();
   const path = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -20,12 +20,9 @@ function Header() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-
-
   return (
     !path.includes("aiform") && (
-      <header dir="ltr" className="top-0 w-full p-3 px-5 border-b shadow-sm">
-        
+      <header dir="ltr" className="w-full p-3 px-5 border-b shadow-sm bg-white">
         <div className="flex justify-between items-center">
           {/* Logo on the Left */}
           <div className="flex items-center">
@@ -35,20 +32,21 @@ function Header() {
 
           {/* Desktop Navigation: Button and Language Switcher on the Right */}
           <div className="hidden md:flex items-center gap-5">
-          <LanguageSwitcher />
+            <LanguageSwitcher />
 
-          {isSignedIn?
-            <div className='flex items-center gap-5'>
-              <Link href={'/dashboard'}>
-              <Button variant="outline">{t("dashboard")}</Button>  
-              </Link>
-            <UserButton/>
-            </div>:
-            <SignInButton>
-              <Button>{t("getStarted")}</Button>
-            </SignInButton>}
+            {isSignedIn ? (
+              <div className='flex items-center gap-5'>
+                <Link href={'/dashboard'}>
+                  <Button variant="outline">{t("dashboard")}</Button>  
+                </Link>
+                <UserButton />
+              </div>
+            ) : (
+              <SignInButton>
+                <Button>{t("getStarted")}</Button>
+              </SignInButton>
+            )}
           </div>
-          
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-2">
@@ -65,19 +63,21 @@ function Header() {
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 flex flex-col">
-            {isSignedIn?
-            <div className='flex items-center gap-5'>
-              <Link href={'/dashboard'}>
-              <Button variant="outline">Dashboard</Button>  
-              </Link>
-                <div className="align-self-center"> <UserButton/></div>
-                
-            </div>:
-            <SignInButton>
-              <Button className="w-full mb-2">{t("getStarted")}</Button>
-            </SignInButton>}
-            <div className="mt-2"> <LanguageSwitcher /></div>
-            
+            {isSignedIn ? (
+              <div className='flex items-center gap-5 self-center'>
+                <Link href={'/dashboard'}>
+                  <Button variant="outline">Dashboard</Button>  
+                </Link>
+                <UserButton />
+              </div>
+            ) : (
+              <SignInButton>
+                <Button className="w-full mb-2">{t("getStarted")}</Button>
+              </SignInButton>
+            )}
+            <div className="mt-2">
+              <LanguageSwitcher />
+            </div>
             {/* Add more mobile navigation links here if needed */}
           </div>
         )}
