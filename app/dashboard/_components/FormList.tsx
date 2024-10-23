@@ -9,12 +9,12 @@ import FormListItem from './FormListItem';
 function FormList() {
 
     const {user}=useUser();
-    const [formList,setFormList]=useState<any[]>([]);
+    const [formList,setFormList]=useState<any[]>([]); 
     useEffect(()=>{
         user&&GetFormList();
     },[user])
     const GetFormList=async()=>{
-        const result:any[] =await db.select().from(JsonForms)
+        const result=await db.select().from(JsonForms)
         .where(eq(JsonForms.createdBy,user?.primaryEmailAddress?.emailAddress))
         .orderBy(desc(JsonForms.id));
 
@@ -24,7 +24,7 @@ function FormList() {
 
   return (
     <div className='mt-5 grid grid-cols-2 md:grid-cols-3 gap-5'>
-        {/* {formList.map((form,index)=>(
+        {formList.map((form,index)=>(
             <div>
                 <FormListItem 
                 jsonForm={JSON.parse(form.jsonform)}
@@ -32,7 +32,7 @@ function FormList() {
                 refreshData={GetFormList}
                 />
            </div>
-        ))} */}
+        ))}
     </div>
   )
 }
