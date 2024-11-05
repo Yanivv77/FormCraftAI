@@ -84,10 +84,10 @@ function Controller({ selectedTheme, selectedBackground, selectedStyle, setSignI
         {/* Style Selection Controller  */}
         <div>
           <label>Style</label>
-          <div className='grid grid-cols-3  gap-3'>
+          <div className='grid grid-cols-3 gap-3 '>
             {Style.map((item, index) => (
-                <div key={index}>
-              <div className='cursor-pointer hover:border-2 rounded-lg' onClick={() => selectedStyle(item.value)}>
+                <div className=' max-w-[120px] max-h-[100px] justify-self-center ' key={index}>
+              <div className='cursor-pointer hover:border-2 rounded-lg  ' onClick={() => selectedStyle(item.value)}>
                 <img src={item.img} width={600} height={80} className='rounded-lg'/>
               
               </div>

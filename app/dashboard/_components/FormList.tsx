@@ -27,6 +27,7 @@ function FormList() {
         {formList.map((form,index)=>(
             <div>
                 <FormListItem 
+                key={index}
                 jsonForm={JSON.parse(form.jsonform)}
                 formRecord={form}
                 refreshData={GetFormList}

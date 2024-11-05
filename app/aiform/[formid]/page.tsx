@@ -37,7 +37,7 @@ function LiveAiForm({params}:any) {
         jsonForm={jsonForm}
         onFieldUpdate={()=>console.log}
         deleteField={()=>console.log}
-        selectedStyle={JSON.parse(record?.style)}
+        
         selectedTheme={record?.theme}
         editable={false}
         formId={record.id}

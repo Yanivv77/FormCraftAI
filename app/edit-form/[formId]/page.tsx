@@ -63,7 +63,7 @@ function EditForm({ params }:any) {
     setJsonForm(JSON.parse(result[0].jsonform))
     setSelectedBackground(result[0].background)
     setSelectedTheme(result[0].theme)
-    setSelectedStyle(JSON.parse(result[0].style))
+    setSelectedStyle(JSON.parse(result[0]?.style))
 
 
 
