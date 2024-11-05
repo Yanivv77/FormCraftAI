@@ -63,7 +63,7 @@ function FormListItemResp({jsonForm, formRecord}: {jsonForm: any, formRecord: Fo
         <h2 className='text-lg text-black'>{jsonForm?.formTitle}</h2>
         <h2 className='text-sm text-gray-500'>{jsonForm?.formHeading}</h2>
         <hr className='my-4'></hr>
-        <div className='flex justify-between items-center'>
+        <div className='flex flex-col md:flex-row justify-between items-center'>
             <h2 className='text-sm'><strong>{responseCount}</strong> Responses</h2>
             <Button className="" size="sm"
             onClick={()=>ExportData()}
