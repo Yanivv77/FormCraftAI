@@ -67,10 +67,10 @@ function FormListItem({formRecord,jsonForm,refreshData}:{formRecord:any,jsonForm
         <h2 className='text-lg text-black'>{jsonForm?.formTitle}</h2>
         <h2 className='text-sm text-gray-500'>{jsonForm?.formHeading}</h2>
         <hr className='my-4'></hr>
-        <div className='flex justify-between'>
+        <div className='flex flex-col md:flex-row justify-between'>
         <RWebShare
         data={{
-          text: jsonForm?.formHeading+" , Build your form in seconds with AI form Builder ",
+          text: jsonForm?.formHeading+" , Created with AI form builder in seconds using FromCraftAI ",
           url: process.env.NEXT_PUBLIC_BASE_URL+"/aiform/"+formRecord?.id,
           title: jsonForm?.formTitle,
         }}

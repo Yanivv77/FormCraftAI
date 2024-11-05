@@ -133,7 +133,7 @@ function EditForm({ params }:any) {
           </Link>
           <RWebShare
             data={{
-              text: jsonForm?.formHeading + " , Build your form in seconds with AI form Builder ",
+              text: jsonForm?.formHeading + " ,Created with AI form builder in seconds using FromCraftAI. ",
               url: process.env.NEXT_PUBLIC_BASE_URL + "/aiform/" + record?.id,
               title: jsonForm?.formTitle,
             }}
