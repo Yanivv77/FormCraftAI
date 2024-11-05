@@ -20,7 +20,9 @@ import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { desc, eq } from 'drizzle-orm'
 
-const PROMPT =" and avoiding the generation of JSON output that starts with unnecessary code blocks dont make json with ```json only pure json."
+// Updated prompt to be more specific and structured
+const PROMPT = `On Basis of description create JSON form with formTitle, formHeading along with fieldName, FieldTitle,FieldType, Placeholder, label , required fields, and checkbox and select field type options will be in array only and in JSON format", generate a valid JSON form schema wMake sure to return only valid JSON, no additional text.`
+
 
 
 function CreateForm() {
@@ -30,69 +32,55 @@ function CreateForm() {
     const {user}=useUser();
     const route=useRouter();
  
-
     const [formList,setFormList]=useState<any>([]);
   
-
-    useEffect(()=>{
-      
-        user&&GetFormList()
-    },[user])
+    useEffect(() => {
+        user && GetFormList()
+    }, [user])
 
     const GetFormList=async()=>{
-        const result:any=await db.select().from(JsonForms)
+        const result=await db.select().from(JsonForms)
         .where(eq(JsonForms.createdBy,user?.primaryEmailAddress?.emailAddress))
         .orderBy(desc(JsonForms.id));
-
         setFormList(result);
         
        
     }
-    const onCreateForm=async()=>{
-       
-        if(formList?.length==3)
-        {
+
+    const onCreateForm = async () => {
+        if (formList?.length == 3) {
             toast('Upgrade to create unlimited forms');
             return;
         }
-        setLoading(true);
-        try {
-            const result:any= await AiChatSession.sendMessage("Description:"+userInput+PROMPT);
-            const responseText = result.response.text();
-            console.log(responseText);
-
-            // Validate JSON
-            let parsedJson;
-            try {
-                parsedJson = JSON.parse(responseText);
-            } catch (error) {
-                toast('Invalid JSON format received. Please provide a better description.');
-                setLoading(false);
-                return;
-            }
-
-            // Optionally, you can further validate the structure of parsedJson here
-
-            // Insert valid JSON into the database
-            const resp:any= await db.insert(JsonForms)
-            .values({
-                jsonform: responseText,
-                createdBy:user?.primaryEmailAddress?.emailAddress,
-                createdAt:moment().format('DD/MM/yyyy')
-            }).returning({id:JsonForms.id});
-
-            console.log("New Form ID",resp[0].id);
-            if(resp[0].id)
-            {
-                route.push('/edit-form/'+resp[0].id)
-            }
-        } catch (error) {
-            console.error("Error creating form:", error);
-            toast('An unexpected error occurred. Please try again.');
-        } finally {
-            setLoading(false);
+        if (!userInput.trim()) {
+            toast('Please provide a form description');
+            return;
         }
-    }
+
+        setLoading(true);
+       
+            const result= await AiChatSession.sendMessage("Description:"+userInput+PROMPT);
+            console.log(result.response.text());
+            if(result.response.text())
+                {
+                  const resp=await db.insert(JsonForms)
+                  .values({
+                      jsonform:result.response.text(),
+                      createdBy:user?.primaryEmailAddress?.emailAddress,
+                      createdAt:moment().format('DD/MM/yyyy')
+                  }).returning({id:JsonForms.id});
+          
+                  console.log("New Form ID",resp[0].id);
+                  if(resp[0].id)
+                  {
+                      route.push('/edit-form/'+resp[0].id)
+                  }
+                  setLoading(false);
+                }
+                setLoading(false);
+              }
+        
+
     return (
         <div>
             <Button onClick={()=>setOpenDailog(true)}>+ Create Form</Button>
@@ -122,7 +110,6 @@ function CreateForm() {
                     </DialogHeader>
                 </DialogContent>
             </Dialog>
-
         </div>
     )
 }

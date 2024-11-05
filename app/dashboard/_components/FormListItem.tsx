@@ -30,7 +30,7 @@ function FormListItem({formRecord,jsonForm,refreshData}:{formRecord:any,jsonForm
         
         if(result)
         {
-            toast('Form Deleted!!!');
+            toast('Form Deleted');
             refreshData()
         }
     }

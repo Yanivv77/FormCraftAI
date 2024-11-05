@@ -97,7 +97,7 @@ function EditForm({ params }:any) {
         eq(JsonForms.createdBy, user?.primaryEmailAddress?.emailAddress)))
       .returning({ id: JsonForms.id })
 
-    toast('Updated!!!')
+    toast('Updated')
     console.log(result);
   }
 
@@ -116,7 +116,7 @@ function EditForm({ params }:any) {
       eq(JsonForms.createdBy, user?.primaryEmailAddress?.emailAddress)))
       .returning({ id: JsonForms.id })
 
-    toast('Updated!!!')
+    toast('Updated')
 
   }
 
