@@ -36,7 +36,7 @@ function Responses() {
             <div className='grid grid-cols-2 lg:grid-cols-3 gap-5'>
                 {formList.map((form: FormType, index: number) => (
                     <FormListItemResp
-                        key={form.id} // Add a key prop for better React performance
+                        key={index} 
                         formRecord={form}
                         jsonForm={JSON.parse(form.jsonform)}
                     />

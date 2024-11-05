@@ -20,7 +20,9 @@ import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { desc, eq } from 'drizzle-orm'
 
-const PROMPT=",On Basis of description create JSON form with formTitle, formHeading along with fieldName, FieldTitle,FieldType, Placeholder, label , required fields, and checkbox and select field type options will be in array only and in JSON format Do not include any backticks (```) or the word json in your response."
+const PROMPT =" and avoiding the generation of JSON output that starts with unnecessary code blocks dont make json with ```json only pure json."
+
+
 function CreateForm() {
     const [openDialog,setOpenDailog]=useState(false)
     const [userInput,setUserInput]=useState<string>("");
@@ -50,29 +52,46 @@ function CreateForm() {
        
         if(formList?.length==3)
         {
-            toast('Upgrade to create unlimted form')
+            toast('Upgrade to create unlimited forms');
             return;
         }
-        setLoading(true)
-      const result:any= await AiChatSession.sendMessage("Description:"+userInput+PROMPT);
-      console.log(result.response.text());
-      if(result.response.text())
-      {
-        const resp=await db.insert(JsonForms)
-        .values({
-            jsonform:result.response.text(),
-            createdBy:user?.primaryEmailAddress?.emailAddress,
-            createdAt:moment().format('DD/MM/yyyy')
-        }).returning({id:JsonForms.id});
+        setLoading(true);
+        try {
+            const result:any= await AiChatSession.sendMessage("Description:"+userInput+PROMPT);
+            const responseText = result.response.text();
+            console.log(responseText);
 
-        console.log("New Form ID",resp[0].id);
-        if(resp[0].id)
-        {
-            route.push('/edit-form/'+resp[0].id)
+            // Validate JSON
+            let parsedJson;
+            try {
+                parsedJson = JSON.parse(responseText);
+            } catch (error) {
+                toast('Invalid JSON format received. Please provide a better description.');
+                setLoading(false);
+                return;
+            }
+
+            // Optionally, you can further validate the structure of parsedJson here
+
+            // Insert valid JSON into the database
+            const resp:any= await db.insert(JsonForms)
+            .values({
+                jsonform: responseText,
+                createdBy:user?.primaryEmailAddress?.emailAddress,
+                createdAt:moment().format('DD/MM/yyyy')
+            }).returning({id:JsonForms.id});
+
+            console.log("New Form ID",resp[0].id);
+            if(resp[0].id)
+            {
+                route.push('/edit-form/'+resp[0].id)
+            }
+        } catch (error) {
+            console.error("Error creating form:", error);
+            toast('An unexpected error occurred. Please try again.');
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
-      }
-      setLoading(false);
     }
     return (
         <div>

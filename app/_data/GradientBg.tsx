@@ -1,6 +1,6 @@
 export default[
     {
-        "name": "None",
+        "name": "",
         "gradient": ""
       },
   {
