@@ -51,9 +51,50 @@ function FormListItemResp({jsonForm, formRecord}: {jsonForm: any, formRecord: Fo
      */
     const exportToExcel=(jsonData: any[])=>{
         const worksheet = XLSX.utils.json_to_sheet(jsonData);
+        
+        // Calculate maximum width for each column based on content and headers
+        const colWidths: { wch: number }[] = [];
+        const range = XLSX.utils.decode_range(worksheet['!ref'] || 'A1');
+        
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+            let maxLength = 0;
+            
+            // Get column letter (A, B, C, etc.)
+            const columnLetter = XLSX.utils.encode_col(C);
+            
+            // Check header length
+            const headerAddress = columnLetter + "1";
+            if (worksheet[headerAddress]) {
+                maxLength = Math.max(maxLength, String(worksheet[headerAddress].v).length);
+            }
+            
+            // Check content length for each row
+            for (let R = range.s.r + 1; R <= range.e.r; ++R) {
+                const address = columnLetter + (R + 1);
+                if (worksheet[address]) {
+                    maxLength = Math.max(maxLength, String(worksheet[address].v).length);
+                }
+            }
+            
+            // Set column width (add some padding)
+            colWidths[C] = { wch: Math.min(maxLength + 2, 50) }; // Cap width
+        }
+        
+        worksheet['!cols'] = colWidths;
+
+        // Style the header row
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+            const address = XLSX.utils.encode_col(C) + "1";
+            if (!worksheet[address]) continue;
+            worksheet[address].s = {
+                font: { bold: true },
+                fill: { fgColor: { rgb: "EEEEEE" } },
+                alignment: { horizontal: "center" }
+            };
+        }
+
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-       
         XLSX.writeFile(workbook, jsonForm?.formTitle+".xlsx");
     }
 
