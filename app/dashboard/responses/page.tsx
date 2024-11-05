@@ -6,44 +6,38 @@ import { eq } from 'drizzle-orm'
 import React, { useEffect, useState } from 'react'
 import FormListItemResp from './_components/FormListItemResp'
 
-// Add this import at the top of the file
-import { InferModel } from 'drizzle-orm'
-
-// Define the type for a single form
-type FormType = InferModel<typeof JsonForms>
-
 function Responses() {
-    const {user} = useUser();
-    // Update the state type
-    const [formList, setFormList] = useState<FormType[]>([]);
 
-    useEffect(() => {
-        user && getFormList();
-    }, [user])
+    const {user}=useUser();
+    const [formList, setFormList] = useState<any[]>([]);
+    
 
-    const getFormList = async () => {
-        const result = await db.select().from(JsonForms)
-            .where(eq(JsonForms.createdBy, user?.primaryEmailAddress?.emailAddress))
+
+    useEffect(()=>{
+        user&&getFormList();
+    },[user])
+
+    const getFormList=async()=>{
+        const result=await db.select().from(JsonForms)
+        .where(eq(JsonForms.createdBy,user?.primaryEmailAddress?.emailAddress))
         
-            console.log(result[0].jsonform)
         setFormList(result);
     }
+    console.log(formList);
+  return formList&&(
+    <div className='p-10'>
+        <h2 className='font-bold text-3xl flex items-center justify-between'>Responses</h2>
 
-    return formList && (
-        <div className='p-10'>
-            <h2 className='font-bold text-3xl flex items-center justify-between'>Responses</h2>
-
-            <div className='grid grid-cols-2 lg:grid-cols-3 gap-5'>
-                {formList.map((form: FormType, index: number) => (
-                    <FormListItemResp
-                        key={index} 
-                        formRecord={form}
-                        jsonForm={JSON.parse(form.jsonform)}
-                    />
-                ))}
-            </div>
+        <div className='grid grid-cols-2 lg:grid-cols-3 gap-5'>
+            {formList&&formList?.map((form,index)=>(
+                <FormListItemResp
+                formRecord={form}
+                jsonForm={JSON.parse(form.jsonform)}
+                />
+            ))}
         </div>
-    )
+    </div>
+  )
 }
 
 export default Responses

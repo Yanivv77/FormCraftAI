@@ -42,18 +42,18 @@ const SideNav: React.FC = () => {
             icon:MessageSquare,
             path:'/dashboard/responses'
         },
-        {
-            id:3,
-            name:'Analytics',
-            icon:LineChart,
-            path:'/dashboard/analytics'
-        },
-        {
-            id:4,
-            name:'Upgrade',
-            icon:Shield,
-            path:'/dashboard/upgrade'
-        }
+        // {
+        //     id:3,
+        //     name:'Analytics',
+        //     icon:LineChart,
+        //     path:'/dashboard/analytics'
+        // },
+        // {
+        //     id:4,
+        //     name:'Upgrade',
+        //     icon:Shield,
+        //     path:'/dashboard/upgrade'
+        // }
     ]
 
   const { user } = useUser();
@@ -75,7 +75,7 @@ const SideNav: React.FC = () => {
         .orderBy(desc(JsonForms.id));
 
       setFormList(result);
-      const perc = (result.length / 3) * 100;
+      const perc = (result.length / 10) * 100;
       setPercFileCreated(perc);
     } catch (error) {
       console.error('Error fetching form list:', error);
@@ -226,11 +226,11 @@ const SideNav: React.FC = () => {
               <div className="my-7">
                 <Progress value={percFileCreated} />
                 <h2 className="text-sm mt-2 text-gray-600 text-center">
-                  <strong>{formList.length}</strong> out of <strong>3</strong> Files Created
+                  <strong>{formList.length}</strong> out of <strong>10</strong> Files Created
                 </h2>
-                <h2 className="text-sm mt-3 text-gray-600 text-center">
+                {/* <h2 className="text-sm mt-3 text-gray-600 text-center">
                   Upgrade your plan for unlimited AI form build
-                </h2>
+                </h2> */}
               </div>
             </div>
           </nav>

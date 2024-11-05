@@ -48,7 +48,7 @@ function CreateForm() {
     }
 
     const onCreateForm = async () => {
-        if (formList?.length == 3) {
+        if (formList?.length == 10) {
             toast('Upgrade to create unlimited forms');
             return;
         }
