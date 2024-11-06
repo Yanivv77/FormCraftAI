@@ -19,10 +19,13 @@ import { JsonForms } from '@/configs/schema'
 import { and, eq } from 'drizzle-orm'
 import { toast } from 'sonner'
 import { RWebShare } from 'react-web-share'
+import { useTranslations } from 'next-intl';
   
 function FormListItem({formRecord,jsonForm,refreshData}:{formRecord:any,jsonForm:any,refreshData:()=>void}) {
 
     const {user}=useUser();
+    const t = useTranslations();
+
     const onDeleteForm=async()=>{
         const result=await db.delete(JsonForms)
         .where(and(eq(JsonForms.id,formRecord.id),
@@ -30,7 +33,7 @@ function FormListItem({formRecord,jsonForm,refreshData}:{formRecord:any,jsonForm
         
         if(result)
         {
-            toast('Form Deleted');
+            toast(t('dashboard.forms.formDeleted'));
             refreshData()
         }
     }
@@ -48,17 +51,16 @@ function FormListItem({formRecord,jsonForm,refreshData}:{formRecord:any,jsonForm
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogTitle>{t('dashboard.forms.deleteConfirm.title')}</AlertDialogTitle>
                     <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete your account
-                        and remove your data from our servers.
+                        {t('dashboard.forms.deleteConfirm.description')}
                     </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel>{t('dashboard.forms.deleteConfirm.cancel')}</AlertDialogCancel>
                     <AlertDialogAction
                      onClick={()=>onDeleteForm()}
-                     >Continue</AlertDialogAction>
+                     >{t('dashboard.forms.deleteConfirm.continue')}</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
                 </AlertDialog>
@@ -70,17 +72,17 @@ function FormListItem({formRecord,jsonForm,refreshData}:{formRecord:any,jsonForm
         <div className='flex flex-col md:flex-row justify-between'>
         <RWebShare
         data={{
-          text: jsonForm?.formHeading+" , Created with AI form builder in seconds using FromCraftAI ",
+          text: `${jsonForm?.formHeading}, ${t('dashboard.forms.shareText')}`,
           url: process.env.NEXT_PUBLIC_BASE_URL+"/aiform/"+formRecord?.id,
           title: jsonForm?.formTitle,
         }}
      
       >
-    <Button variant="outline" size="sm" className="flex gap-2"> <Share className='h-5 w-5'/> Share</Button>
+    <Button variant="outline" size="sm" className="flex gap-2"> <Share className='h-5 w-5'/> {t('dashboard.forms.share')}</Button>
 
       </RWebShare>
             <Link href={'/edit-form/'+formRecord?.id}>
-                <Button className="flex gap-2"  size="sm"> <Edit className='h-5 w-5'/> Edit</Button>
+                <Button className="flex gap-2"  size="sm"> <Edit className='h-5 w-5'/> {t('dashboard.forms.edit')}</Button>
             </Link>
         </div>
     </div>

@@ -13,6 +13,7 @@ import Controller from '../_components/Controller'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { RWebShare } from 'react-web-share'
+import { useTranslations } from 'next-intl';
 
 interface Field {
   label: string;
@@ -49,6 +50,8 @@ function EditForm({ params }:any) {
   const [selectedTheme, setSelectedTheme] = useState('light');
   const [selectedBackground, setSelectedBackground] = useState<any>();
   const [selectedStyle, setSelectedStyle] = useState<any>();
+
+  const t = useTranslations();
 
   useEffect(() => {
     user && GetFormData();
@@ -90,15 +93,18 @@ function EditForm({ params }:any) {
   };
 
   const updateJsonFormInDb = async () => {
-    const result = await db.update(JsonForms)
-      .set({
-        jsonform: jsonForm
-      }).where(and(eq(JsonForms.id, record.id),
-        eq(JsonForms.createdBy, user?.primaryEmailAddress?.emailAddress)))
-      .returning({ id: JsonForms.id })
+    try {
+      const result = await db.update(JsonForms)
+        .set({
+          jsonform: jsonForm
+        }).where(and(eq(JsonForms.id, record.id),
+          eq(JsonForms.createdBy, user?.primaryEmailAddress?.emailAddress)))
+        .returning({ id: JsonForms.id })
 
-    toast('Updated')
- 
+      toast(t('editForm.toast.updated'));
+    } catch (error) {
+      toast.error(t('editForm.toast.error'));
+    }
   }
 
   const deleteField = (indexToRemove: number) => {
@@ -125,20 +131,20 @@ function EditForm({ params }:any) {
       <div className='flex justify-between items-center'>
         <h2 className='flex gap-2 items-center my-5 cursor-pointer
         hover:font-bold ' onClick={() => router.back()}>
-          <ArrowLeft /> Back
+          <ArrowLeft /> {t('editForm.navigation.back')}
         </h2>
         <div className='flex gap-2'>
           <Link href={'/aiform/' + record?.id} target="_blank">
-            <Button className="flex gap-2" > <SquareArrowOutUpRight className='h-5 w-5' /> Live Preview</Button>
+            <Button className="flex gap-2" > <SquareArrowOutUpRight className='h-5 w-5' /> {t('editForm.navigation.livePreview')}</Button>
           </Link>
           <RWebShare
             data={{
-              text: jsonForm?.formHeading + " ,Created with AI form builder in seconds using FromCraftAI. ",
+              text: `${jsonForm?.formHeading}, ${t('editForm.shareDialog.text')}`,
               url: process.env.NEXT_PUBLIC_BASE_URL + "/aiform/" + record?.id,
               title: jsonForm?.formTitle,
             }}
           >
-            <Button className="flex gap-2 bg-green-600 hover:bg-green-700"> <Share2 /> Share</Button>
+            <Button className="flex gap-2 bg-green-600 hover:bg-green-700"> <Share2 /> {t('editForm.navigation.share')}</Button>
 
           </RWebShare>
 

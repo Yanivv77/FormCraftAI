@@ -19,6 +19,7 @@ import { useRouter } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { desc, eq } from 'drizzle-orm'
+import { useTranslations } from 'next-intl';
 
 // Updated prompt to be more specific and structured
 const PROMPT = `On Basis of description create JSON form with formTitle, formHeading along with fieldName, FieldTitle,FieldType, Placeholder, label , required fields, and checkbox and select field type options will be in array only and in JSON format", generate a valid JSON form schema wMake sure to return only valid JSON, no additional text.`
@@ -49,11 +50,11 @@ function CreateForm() {
 
     const onCreateForm = async () => {
         if (formList?.length == 10) {
-            toast('Upgrade to create unlimited forms');
+            toast(t('dashboard.errors.upgradeNeeded'));
             return;
         }
         if (!userInput.trim()) {
-            toast('Please provide a form description');
+            toast(t('dashboard.errors.descriptionNeeded'));
             return;
         }
 
@@ -80,29 +81,30 @@ function CreateForm() {
               }
         
 
+    const t = useTranslations();
+
     return (
         <div>
-            <Button onClick={()=>setOpenDailog(true)}>+ Create Form</Button>
+            <Button onClick={()=>setOpenDailog(true)}>+ {t('dashboard.createForm')}</Button>
             <Dialog open={openDialog}>
                
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Create new form </DialogTitle>
+                        <DialogTitle>{t('dashboard.createNewForm')}</DialogTitle>
                         <DialogDescription>
                         <Textarea className="my-2" 
                             onChange={(event)=>setUserInput(event.target.value)}
-                        placeholder="Write descrition of your form"/>
+                            placeholder={t('dashboard.formDescription')}
+                        />
                         <div className='flex gap-2 my-3 justify-end'>
                             <Button 
                             onClick={()=>setOpenDailog(false)}
-                            variant="destructive">Cancel</Button>
+                            variant="destructive">{t('dashboard.cancel')}</Button>
                             <Button 
                                 disabled={loading}
                             onClick={()=>onCreateForm()}>
-                                {loading?
-                                <Loader2 className='animate-spin' />:'Create'    
-                            }
-                                </Button>
+                                {loading ? <Loader2 className='animate-spin' /> : t('dashboard.create')}
+                            </Button>
 
                         </div>
                         </DialogDescription>

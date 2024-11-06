@@ -30,6 +30,113 @@
     "home": "Home",
     "title": "Sign up for a new account",
     "description": "Sign up to the system using a popular account or create a new account."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "myForms": "My Forms",
+    "myResponses": "Responses",
+    "responses": {
+      "title": "Responses",
+      "noResponses": "No responses yet",
+      "export": "Export",
+      "loading": "Loading...",
+      "count": "responses",
+      "exportSuccess": "Data exported successfully",
+      "exportError": "Error exporting data",
+      "downloadFileName": "Form Responses",
+      "sheet": {
+        "name": "Sheet1",
+        "noData": "No data available"
+      },
+      "shareText": "Check out this form's responses",
+      "actions": {
+        "view": "View Responses",
+        "download": "Download Excel",
+        "share": "Share Results"
+      }
+    },
+    "createForm": "Create Form",
+    "filesCreated": "Files Created",
+    "outOf": "out of",
+    "createNewForm": "Create new form",
+    "cancel": "Cancel",
+    "create": "Create",
+    "formDescription": "Write description of your form",
+    "toggleMenu": "Toggle Menu",
+    "sidebarNavigation": "Sidebar Navigation",
+    "upgradeMessage": "Upgrade your plan for unlimited AI form build",
+    "upgrade": {
+      "title": "Upgrade Plan",
+      "unlimited": "Unlimited",
+      "features": {
+        "aiForms": "Unlimited AI forms",
+        "responses": "Unlimited User Form Responses",
+        "emailSupport": "Email support",
+        "appAccess": "App Access"
+      }
+    },
+    "share": "Share",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteConfirm": {
+      "title": "Are you absolutely sure?",
+      "description": "This action cannot be undone. This will permanently delete your form and remove your data from our servers.",
+      "cancel": "Cancel",
+      "continue": "Continue"
+    },
+    "forms": {
+      "deleteConfirm": {
+        "title": "Are you absolutely sure?",
+        "description": "This action cannot be undone. This will permanently delete your form and remove your data from our servers.",
+        "cancel": "Cancel",
+        "continue": "Continue"
+      },
+      "share": "Share",
+      "edit": "Edit",
+      "delete": "Delete",
+      "responses": "Responses",
+      "export": "Export",
+      "loading": "Loading...",
+      "formDeleted": "Form Deleted",
+      "shareText": "Created with AI form builder in seconds using FromCraftAI"
+    }
+  },
+  "editor": {
+    "controller": {
+      "themes": "Themes",
+      "background": "Background",
+      "style": "Style",
+      "showMore": "Show More",
+      "showLess": "Show Less",
+      "none": "None",
+      "authentication": {
+        "label": "Enable Social Authentication before submit the form",
+        "tooltip": "Users will need to sign in before submitting the form"
+      },
+      "select": {
+        "themePlaceholder": "Select a theme",
+        "backgroundPlaceholder": "Select a background",
+        "stylePlaceholder": "Select a style"
+      }
+    }
+  },
+  "editForm": {
+    "navigation": {
+      "back": "Back",
+      "livePreview": "Live Preview",
+      "share": "Share"
+    },
+    "shareDialog": {
+      "text": "Created with AI form builder in seconds using FromCraftAI",
+      "title": "Share Form"
+    },
+    "toast": {
+      "updated": "Updated",
+      "error": "Error updating form"
+    },
+    "preview": {
+      "noFields": "No fields added yet"
+    }
   }
 }
   

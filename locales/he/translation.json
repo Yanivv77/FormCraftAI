@@ -30,5 +30,115 @@
     "home": "בית",
     "title": "הרשם לחשבון חדש",
     "description": "הרשם למערכת באמצעות חשבון פופולרי או צור חשבון חדש."
-}
+  },
+  "dashboard": {
+    "title": "לוח בקרה",
+    "myForms": "הטפסים שלי",
+    "myResponses": "תגובות",
+    "responses": {
+      "title": "תגובות",
+      "noResponses": "אין תגובות עדיין",
+      "export": "ייצוא",
+      "loading": "טוען...",
+      "count": "תגובות",
+      "exportSuccess": "הנתונים יוצאו בהצלחה",
+      "exportError": "שגיאה בייצוא הנתונים",
+      "downloadFileName": "תגובות טופס",
+      "sheet": {
+        "name": "גיליון1",
+        "noData": "אין נתונים זמינים"
+      },
+      "shareText": "צפה בתגובות לטופס זה",
+      "actions": {
+        "view": "צפה בתגובות",
+        "download": "הורד אקסל",
+        "share": "שתף תוצאות"
+      }
+    },
+    "createForm": "צור טופס",
+    "filesCreated": "קבצים שנוצרו",
+    "outOf": "מתוך",
+    "createNewForm": "צור טופס חדש",
+    "cancel": "ביטול",
+    "create": "צור",
+    "formDescription": "כתוב תיאור של הטופס שלך",
+    "toggleMenu": "תפריט",
+    "sidebarNavigation": "ניווט צדדי",
+    "upgrade": {
+      "title": "שדרג תוכנית",
+      "unlimited": "ללא הגבלה",
+      "features": {
+        "aiForms": "טפסי AI ללא הגבלה",
+        "responses": "תגובות משתמשים ללא הגבלה",
+        "emailSupport": "תמיכה בדוא\"ל",
+        "appAccess": "גישה לאפליקציה"
+      }
+    },
+    "share": "שתף",
+    "edit": "ערוך",
+    "delete": "מחק",
+    "deleteConfirm": {
+      "title": "האם אתה בטוח לחלוטין?",
+      "description": "לא ניתן לבטל פעולה זו. פעולה זו תמחק לצמיתות את הטופס שלך ותסיר את הנתונים שלך מהשרתים שלנו.",
+      "cancel": "ביטול",
+      "continue": "המשך"
+    },
+    "errors": {
+      "upgradeNeeded": "שדרג כדי ליצור טפסים ללא הגבלה",
+      "descriptionNeeded": "אנא ספק תיאור לטופס"
+    },
+    "forms": {
+      "deleteConfirm": {
+        "title": "האם אתה בטוח לחלוטין?",
+        "description": "לא ניתן לבטל פעולה זו. פעולה זו תמחק לצמיתות את הטופס שלך ותסיר את הנתונים שלך מהשרתים שלנו.",
+        "cancel": "ביטול",
+        "continue": "המשך"
+      },
+      "share": "שתף",
+      "edit": "ערוך",
+      "delete": "מחק",
+      "responses": "תגובות",
+      "export": "ייצוא",
+      "loading": "טוען...",
+      "formDeleted": "הטופס נמחק",
+      "shareText": "נוצר עם בונה טפסים AI בשניות באמצעות FromCraftAI"
+    }
+  },
+  "editor": {
+    "controller": {
+      "themes": "ערכות נושא",
+      "background": "רקע",
+      "style": "סגנון",
+      "showMore": "הצג עוד",
+      "showLess": "הצג פחות",
+      "none": "ללא",
+      "authentication": {
+        "label": "אפשר אימות חברתי לפני שליחת הטופס",
+        "tooltip": "משתמשים יצטרכו להתחבר לפני שליחת הטופס"
+      },
+      "select": {
+        "themePlaceholder": "בחר ערכת נושא",
+        "backgroundPlaceholder": "בחר רקע",
+        "stylePlaceholder": "בחר סגנון"
+      }
+    }
+  },
+  "editForm": {
+    "navigation": {
+      "back": "חזור",
+      "livePreview": "תצוגה מקדימה",
+      "share": "שתף"
+    },
+    "shareDialog": {
+      "text": "נוצר עם בונה טפסים AI בשניות באמצעות FromCraftAI",
+      "title": "שתף טופס"
+    },
+    "toast": {
+      "updated": "עודכן",
+      "error": "שגיאה בעדכון הטופס"
+    },
+    "preview": {
+      "noFields": "טרם נוספו שדות"
+    }
+  }
 }

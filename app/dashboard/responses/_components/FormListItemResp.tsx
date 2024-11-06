@@ -4,16 +4,17 @@ import { userResponses } from '@/configs/schema'
 import { eq } from 'drizzle-orm'
 import { Loader2 } from 'lucide-react'
 import React, { useState, useEffect } from 'react'
-import * as XLSX from 'xlsx';
+import * as XLSX from 'xlsx'
+import { useTranslations } from 'next-intl'
+import { toast } from 'sonner'
 
 interface FormRecord {
   id: string; 
 }
 
 function FormListItemResp({jsonForm, formRecord}: {jsonForm: any, formRecord: FormRecord}) {
- 
-    
-    const [loading,setLoading]=useState(false);
+    const t = useTranslations();
+    const [loading, setLoading] = useState(false);
     const [responseCount, setResponseCount] = useState(0);
 
     useEffect(() => {
@@ -26,26 +27,29 @@ function FormListItemResp({jsonForm, formRecord}: {jsonForm: any, formRecord: Fo
         setResponseCount(result.length);
     };
 
-    const ExportData=async()=>{
-        let jsonData: any[] = [];
-        setLoading(true);
-        const result=await db.select().from(userResponses)
-        .where(eq(userResponses.formRef,formRecord.id));
-
-        
-        if(result)
-        { 
-            result.forEach((item)=>{
-                const jsonItem=JSON.parse(item.jsonResponse);
-                jsonData.push(jsonItem);
-            })
+    const ExportData = async () => {
+        try {
+            let jsonData: any[] = [];
+            setLoading(true);
+            const result = await db.select().from(userResponses)
+                .where(eq(userResponses.formRef, formRecord.id));
+            
+            if(result) { 
+                result.forEach((item) => {
+                    const jsonItem = JSON.parse(item.jsonResponse);
+                    jsonData.push(jsonItem);
+                });
+                setLoading(false);
+            }
+         
+            exportToExcel(jsonData);
+            toast.success(t('dashboard.responses.exportSuccess'));
+        } catch (error) {
+            toast.error(t('dashboard.responses.exportError'));
             setLoading(false);
         }
-     
-        exportToExcel(jsonData)
     }
 
-    
     /**
      * Convert Json to Excel and then Donwload it
      */
@@ -98,23 +102,29 @@ function FormListItemResp({jsonForm, formRecord}: {jsonForm: any, formRecord: Fo
         XLSX.writeFile(workbook, jsonForm?.formTitle+".xlsx");
     }
 
-  return (
-    <div className='border shadow-sm rounded-lg p-4 my-5'>
-       
-        <h2 className='text-lg text-black'>{jsonForm?.formTitle}</h2>
-        <h2 className='text-sm text-gray-500'>{jsonForm?.formHeading}</h2>
-        <hr className='my-4'></hr>
-        <div className='flex flex-col md:flex-row justify-between items-center'>
-            <h2 className='text-sm'><strong>{responseCount}</strong> Responses</h2>
-            <Button className="" size="sm"
-            onClick={()=>ExportData()}
-            disabled={loading}
-            >
-                {loading?<Loader2 className='animate-spin' />:'Export' }
+    return (
+        <div className='border shadow-sm rounded-lg p-4 my-5'>
+            <h2 className='text-lg text-black'>{jsonForm?.formTitle}</h2>
+            <h2 className='text-sm text-gray-500'>{jsonForm?.formHeading}</h2>
+            <hr className='my-4'></hr>
+            <div className='flex flex-col md:flex-row justify-between items-center'>
+                <h2 className='text-sm'>
+                    <strong>{responseCount}</strong> {t('dashboard.responses.count')}
+                </h2>
+                <Button 
+                    className="" 
+                    size="sm"
+                    onClick={() => ExportData()}
+                    disabled={loading}
+                >
+                    {loading ? 
+                        <Loader2 className='animate-spin' /> : 
+                        t('dashboard.responses.export')
+                    }
                 </Button>
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default FormListItemResp

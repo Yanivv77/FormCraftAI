@@ -20,6 +20,7 @@ import React, {
   useCallback,
   useRef
 } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface MenuItem {
   id: number;
@@ -29,31 +30,21 @@ interface MenuItem {
 }
 
 const SideNav: React.FC = () => {
+    const t = useTranslations();
+
     const menuList=[
         {
             id:1,
-            name:'My Forms',
+            name: t('dashboard.myForms'),
             icon:LibraryBig,
             path:'/dashboard'
         },
         {
             id:2,
-            name:'Responses',
+            name: t('dashboard.myResponses'),
             icon:MessageSquare,
             path:'/dashboard/responses'
-        },
-        // {
-        //     id:3,
-        //     name:'Analytics',
-        //     icon:LineChart,
-        //     path:'/dashboard/analytics'
-        // },
-        // {
-        //     id:4,
-        //     name:'Upgrade',
-        //     icon:Shield,
-        //     path:'/dashboard/upgrade'
-        // }
+        }
     ]
 
   const { user } = useUser();
@@ -171,7 +162,7 @@ const SideNav: React.FC = () => {
         <Button variant="ghost" onClick={toggleSidebar} aria-label="Toggle Menu">
           {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
         </Button>
-        <h1 className="text-lg font-semibold">Dashboard</h1>
+        <h1 className="text-lg font-semibold">{t('dashboard.title')}</h1>
       </header>
 
       {/* Sidebar */}
@@ -220,13 +211,13 @@ const SideNav: React.FC = () => {
 
             {/* Fixed to Bottom Section */}
             <div className="w-full mt-auto p-5">
-              <Button className="w-full mb-4" aria-label="Create Form">
-                Create Form
+              <Button className="w-full mb-4" aria-label={t('dashboard.createForm')}>
+                {t('dashboard.createForm')}
               </Button>
               <div className="my-7">
                 <Progress value={percFileCreated} />
                 <h2 className="text-sm mt-2 text-gray-600 text-center">
-                  <strong>{formList.length}</strong> out of <strong>10</strong> Files Created
+                  <strong>{formList.length}</strong> {t('dashboard.outOf')} <strong>10</strong> {t('dashboard.filesCreated')}
                 </h2>
                 {/* <h2 className="text-sm mt-3 text-gray-600 text-center">
                   Upgrade your plan for unlimited AI form build

@@ -5,13 +5,13 @@ import { useUser } from '@clerk/nextjs'
 import { eq } from 'drizzle-orm'
 import React, { useEffect, useState } from 'react'
 import FormListItemResp from './_components/FormListItemResp'
+import { useTranslations } from 'next-intl';
 
 function Responses() {
 
     const {user}=useUser();
     const [formList, setFormList] = useState<any[]>([]);
-    
-
+    const t = useTranslations();
 
     useEffect(()=>{
         user&&getFormList();
@@ -26,13 +26,16 @@ function Responses() {
 
   return formList&&(
     <div className='p-10'>
-        <h2 className='font-bold text-3xl flex items-center justify-between'>Responses</h2>
+        <h2 className='font-bold text-3xl flex items-center justify-between'>
+            {t('dashboard.responses.title')}
+        </h2>
 
         <div className='grid grid-cols-2 lg:grid-cols-3 gap-5'>
-            {formList&&formList?.map((form,index)=>(
+            {formList?.map((form,index)=>(
                 <FormListItemResp
-                formRecord={form}
-                jsonForm={JSON.parse(form.jsonform)}
+                    key={index}
+                    formRecord={form}
+                    jsonForm={JSON.parse(form.jsonform)}
                 />
             ))}
         </div>
