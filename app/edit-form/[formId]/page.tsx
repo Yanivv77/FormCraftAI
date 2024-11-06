@@ -59,7 +59,7 @@ function EditForm({ params }:any) {
         eq(JsonForms.createdBy, user?.primaryEmailAddress?.emailAddress)));
 
     setRecord(result[0])
-    console.log(result[0])
+
     setJsonForm(JSON.parse(result[0].jsonform))
     setSelectedBackground(result[0].background)
     setSelectedTheme(result[0].theme)
@@ -98,7 +98,7 @@ function EditForm({ params }:any) {
       .returning({ id: JsonForms.id })
 
     toast('Updated')
-    console.log(result);
+ 
   }
 
   const deleteField = (indexToRemove: number) => {
@@ -109,7 +109,7 @@ function EditForm({ params }:any) {
   }
 
   const updateControllerFields = async (value: any, columnName: string) => {
-    console.log(value, columnName)
+
     const result = await db.update(JsonForms).set({
       [columnName]: value
     }).where(and(eq(JsonForms.id, record.id),
@@ -137,7 +137,6 @@ function EditForm({ params }:any) {
               url: process.env.NEXT_PUBLIC_BASE_URL + "/aiform/" + record?.id,
               title: jsonForm?.formTitle,
             }}
-            onClick={() => console.log("shared successfully!")}
           >
             <Button className="flex gap-2 bg-green-600 hover:bg-green-700"> <Share2 /> Share</Button>
 

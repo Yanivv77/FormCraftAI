@@ -19,7 +19,6 @@ function FormList() {
         .orderBy(desc(JsonForms.id));
 
         setFormList(result);
-        console.log(result);
     }
 
   return (

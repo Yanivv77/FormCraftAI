@@ -32,7 +32,7 @@ function FormListItemResp({jsonForm, formRecord}: {jsonForm: any, formRecord: Fo
         const result=await db.select().from(userResponses)
         .where(eq(userResponses.formRef,formRecord.id));
 
-        console.log(result);
+        
         if(result)
         { 
             result.forEach((item)=>{
@@ -41,7 +41,7 @@ function FormListItemResp({jsonForm, formRecord}: {jsonForm: any, formRecord: Fo
             })
             setLoading(false);
         }
-        console.log(jsonData);
+     
         exportToExcel(jsonData)
     }
 

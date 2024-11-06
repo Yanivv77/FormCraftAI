@@ -24,7 +24,7 @@ function LiveAiForm({params}:any) {
 
         setRecord(result[0]);
         setJsonForm(JSON.parse(result[0].jsonform));
-        console.log(result);
+     
     }
   return (
     <div className='p-10 flex justify-center items-center'
@@ -35,9 +35,6 @@ function LiveAiForm({params}:any) {
     
        {record&& <FormUi
         jsonForm={jsonForm}
-        onFieldUpdate={()=>console.log}
-        deleteField={()=>console.log}
-        
         selectedTheme={record?.theme}
         editable={false}
         formId={record.id}

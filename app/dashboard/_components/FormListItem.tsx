@@ -74,7 +74,7 @@ function FormListItem({formRecord,jsonForm,refreshData}:{formRecord:any,jsonForm
           url: process.env.NEXT_PUBLIC_BASE_URL+"/aiform/"+formRecord?.id,
           title: jsonForm?.formTitle,
         }}
-        onClick={() => console.log("shared successfully!")}
+     
       >
     <Button variant="outline" size="sm" className="flex gap-2"> <Share className='h-5 w-5'/> Share</Button>
 

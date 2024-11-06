@@ -23,7 +23,7 @@ function Responses() {
         
         setFormList(result);
     }
-    console.log(formList);
+
   return formList&&(
     <div className='p-10'>
         <h2 className='font-bold text-3xl flex items-center justify-between'>Responses</h2>

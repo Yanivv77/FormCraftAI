@@ -41,7 +41,7 @@ function FormUi({ jsonForm,selectedTheme,selectedStyle,
 
   const onFormSubmit=async(event:any)=>{
     event.preventDefault()
-    console.log(formData);
+  
 
     const result=await db.insert(userResponses)
     .values({
