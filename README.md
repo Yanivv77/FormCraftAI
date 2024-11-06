@@ -12,7 +12,7 @@
 
 ## Tech Stack
 ### Frontend
-* Next.js 14 with TypeScript
+* Next.js with TypeScript
 * Tailwind CSS for styling
 * shadcn/ui components
 * next-intl for internationalization
