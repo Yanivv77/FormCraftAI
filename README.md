@@ -129,9 +129,9 @@ Visit http://localhost:3000 to see your application.
 Contributions are welcome! Please fork the repository and submit a pull request. For major changes, please open an issue first to discuss what you’d like to change.
 
 ## **License**
-PodNiv is licensed under the MIT License—feel free to use, modify, and distribute the project as needed.
+FormCraftAI is licensed under the MIT License—feel free to use, modify, and distribute the project as needed.
 
 ---
 
 ## **Get in Touch**
-Have questions or feedback? Feel free to reach out or open an issue on GitHub. We’d love to hear how PodNiv is helping you transform your content!
+Have questions or feedback? Feel free to reach out or open an issue on GitHub. We’d love to hear how FormCraftAI is helping you transform your Forms!
