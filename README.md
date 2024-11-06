@@ -1,36 +1,137 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FormCraftAI - AI-Powered Form Builder
 
-## Getting Started
+## Live Website
+[FormCraftAI - Create professional forms in seconds with AI](https://form-craft-ai-sooty.vercel.app/)
 
-First, run the development server:
+## Why FormCraftAI: Key Benefits
+* ✨ **Instant Form Generation**: Create forms from natural language descriptions using AI
+* 🌐 **Multilingual Support**: Full RTL support for English and Hebrew
+* 🔍 **Real-time Analytics**: Track form responses and generate insights
+* 🚫 **No-Code Required**: User-friendly interface for all skill levels
+* 🎨 **Customizable Design**: Multiple themes and styling options
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Tech Stack
+### Frontend
+* Next.js 14 with TypeScript
+* Tailwind CSS for styling
+* shadcn/ui components
+* next-intl for internationalization
+
+### Backend & Database
+* Drizzle ORM
+* PostgreSQL
+* Clerk Authentication
+
+### AI & Analytics
+* OpenAI API integration
+* XLSX for data exports
+
+## Features
+### AI Form Generation
+```typescript
+const onCreateForm = async () => {
+    if (formList?.length == 10) {
+        toast(t('dashboard.errors.upgradeNeeded'));
+        return;
+    }
+    if (!userInput.trim()) {
+        toast(t('dashboard.errors.descriptionNeeded'));
+        return;
+    }
+    setLoading(true);
+    const result = await AiChatSession.sendMessage("Description:" + userInput + PROMPT);
+    if (result.response.text()) {
+        const resp = await db.insert(JsonForms)
+            .values({
+                jsonform: result.response.text(),
+                createdBy: user?.primaryEmailAddress?.emailAddress,
+                createdAt: moment().format('DD/MM/yyyy')
+            }).returning({ id: JsonForms.id });
+        if (resp[0].id) {
+            route.push('/edit-form/' + resp[0].id)
+        }
+        setLoading(false);
+    }
+    setLoading(false);
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Multilingual Support
+* English and Hebrew translations
+* RTL layout support
+* Localized UI components
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Form Management
+* Create, edit, and delete forms
+* Share forms with unique URLs
+* Response tracking and analytics
+* Data export capabilities
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
+```
+formcraftai/
+├── app/
+│   ├── aiform/            # AI Form generation & preview
+│   ├── dashboard/         # User dashboard & management
+│   ├── edit-form/         # Form editor interface
+│   └── _components/       # Shared components
+├── configs/               # App configuration
+├── locales/              # Translation files
+│   ├── en/               # English translations
+│   └── he/               # Hebrew translations
+└── public/               # Static assets
+```
 
-## Learn More
+## Quick Start Guide
+* **Clone the repository**
+```bash
+git clone https://github.com/Yanivv77/formcraftai.git
+cd formcraftai
+```
+* **Install dependencies**
+```bash
+npm install
+```
+* **Set up environment variables**
+```bash
+cp .env.example .env.local
+```
+* **Configure your environment**
+```
+# Authentication (Clerk)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
 
-To learn more about Next.js, take a look at the following resources:
+# Clerk Auth Routes
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Database
+NEXT_PUBLIC_DATABASE_URL_CONFIG=your_postgres_connection_string
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# AI Services
+NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
 
-## Deploy on Vercel
+# Application
+NEXT_PUBLIC_BASE_URL=
+```
+* **Run development server**
+```bash
+npm run db:push
+npm run db:studio
+npm run dev
+```
+Visit http://localhost:3000 to see your application.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contributing
+Contributions are welcome! Please fork the repository and submit a pull request. For major changes, please open an issue first to discuss what you’d like to change.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## **License**
+PodNiv is licensed under the MIT License—feel free to use, modify, and distribute the project as needed.
+
+---
+
+## **Get in Touch**
+Have questions or feedback? Feel free to reach out or open an issue on GitHub. We’d love to hear how PodNiv is helping you transform your content!
